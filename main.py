@@ -10,7 +10,4 @@ class ContentNavigationDrawer(BoxLayout):
 class main(MDApp):
     def build(self):
         return A()
-    # def on_start(self):
-    #     for i in range(20):
-    #         self.root.ids.container.add_widget(OneLineListItem(text=f"Single-line item {i}"))
 main().run()
