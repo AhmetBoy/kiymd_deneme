@@ -1,0 +1,122 @@
+WindowManager:
+    FirstPage:
+    SecondPage:
+    ForgotPassword:
+    CreateAccount:
+    
+
+<FirstPage>:
+    name: 'first_page'
+    canvas.before:
+        Color:
+            rgba:(53,53,53,255)
+        Rectangle:
+            size:self.size
+            pos:self.pos
+    Image:
+        source:"unlock.png"
+
+    BoxLayout:
+        orientation:"vertical"
+        pos_hint:{"center_x":.5,"center_y":.5}
+        size_hint:.8,.8
+        spacing:10
+        
+        Label:
+            markup: True
+            size_hint_y:None
+            height: 30
+            text: "[color=#4ca5a2]LOGIN[/color]"
+            bold:True
+	BoxLayout:
+		orientation:"vertical"
+		spacing:10
+		size_hint_y:.5	
+		TextInput:
+		    id:text_username
+		    hint_text: 'Username'
+		    on_text_validate: text_password.focus = True #yazıyı yazdıktan sonra odaklanacagı id yi seçiyoruz.
+		    focus: True #açılırken ona odaklanıyor.
+		    multiline: False #1 satır yazabiliyosun. genelde validate ile beraber kullanılmalı.
+
+		    
+		TextInput:
+		    id:text_password
+		    hint_text: 'Password'
+		    on_text_validate: buton_login.focus = True
+		    multiline: False
+		    password: True
+
+		SmoothButton:
+		    id:buton_login
+		    text:"LogIn"
+		    border_radius:[18,2,18,2]
+		    on_release: 
+		        root.manager.current = 'second_page' if text_username.text == "admin" and  text_password.text == "123" else root.login_info()
+		        root.manager.transition.direction = "up"
+		        markup:True
+		    
+            
+        Label: # giriş bilgisi başarılı veya basarısız.
+            id:lbl_info
+            markup:True
+
+        StrokeButton:
+            text:"[u]Forgot password[/u]"
+            markup:True
+            size_hint_y:.1
+            on_release: 
+                app.root.current = 'forgot_password'
+            
+        StrokeButton:
+            text:"[u]Creat an account[/u]"
+            markup:True
+            size_hint_y:.1
+            on_release: 
+                app.root.current = 'create_account'
+            
+        
+
+<SecondPage>:
+    name: 'second_page'
+    Button:
+        text:'Hello kivy'
+        on_release: 
+            app.root.current = 'first_page'
+            root.manager.transition.direction = "down"
+
+<ForgotPassword>:
+    name:'forgot_password'
+
+        
+
+<CreateAccount>:
+    name:'create_account'
+        
+
+
+<SmoothButton@Button>:
+    background_color:(0,0,0,0)
+    background_normal:''
+    back_color:(1,66/255,66/255,1)
+    border_radius:[18]
+    canvas.before:
+        Color:
+            rgba:self.back_color
+        RoundedRectangle:
+            size:self.size
+            pos:self.pos
+            radius:self.border_radius
+<StrokeButton@Button>:
+    background_color:(0,0,0,0)
+    background_normal:''
+    back_color:(76/255,165/255,162/255,1)
+    border_radius:[18]
+    color:self.back_color
+    bold:True
+    canvas.before:
+        Color:
+            rgba:self.back_color
+        Line:
+            rounded_rectangle:(self.pos[0],self.pos[1],self.size[0],self.size[1],self.border_radius)
+            width:1.2
