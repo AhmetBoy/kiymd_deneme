@@ -1,44 +1,74 @@
-#:import Factory kivy.factory.Factory
-                
 <Myt>:
-    Button:
-        text: 'Open popup'
-        on_release: Factory.MyPopup().open()
-
-<MyPopup@Popup>:
-    size_hint_y:.3
-    pos_hint:{"top":0.3}
-    title:"hello world"
     BoxLayout:
         orientation:"vertical"
+        padding:25
+        spacing:10
+        canvas.before:
+            Color:
+                rgba: 1,1,1,1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        # MDBoxLayout:
+        #     size_hint_y: None
+        #     height: "100dp"
+        #     orientation: 'vertical'
+
+        #     FitImage:
+        #         size_hint_y: 1
+        #         source: 'img1.jpg'
+
         BoxLayout:
             orientation:"vertical"
-            size_hint:None,None
-            size_hint:1,.1
+            size_hint_y:None
+            height:90
+            spacing:30
             BoxLayout:
-                Label:
-                    size_hint_x:.1
-                    text: str(slider.value)
-                Slider:
-                    id: slider
-                    min: 0
-                    max: 100
-                    step:1
-                Label:
-                    size_hint_x:.1
-                    text: str(slider.value)
-            BoxLayout:
-                MDIconButton:
-                    icon:"rewind-10"
-                    text:"geri sar"
-                MDIconButton:
-                    icon:"play"
-                    text:"durdur/oynat"
-                MDIconButton:
-                    icon:"fast-forward-10"
-                    text:"ileri sar"
+                MDLabel:
+                    text:"KentKart numarasını giriniz."
+                    halign: "center"
 
-                MDIconButton:
-                    icon:"location-exit"
-                    on_release:root.dismiss()
-                    text:"çıkış"
+
+            BoxLayout:
+                size_hint_y:None
+                height:30
+                spacing:5
+                MDTextField:
+                    id:kentkart_id
+                    pos_hint: {"center_y": .4}
+                    hint_text: "XXXXX-XXXXX"
+                    max_text_length: 10
+
+
+                MDRaisedButton:
+                    text: "Sorgula"
+                    md_bg_color: 0, 1, 1, 1
+                    on_press:root.kart_num()
+        BoxLayout:
+            orientation:"vertical"
+            MDLabel:
+                id:bakiye
+                halign: "center"
+                theme_text_color: "Primary"
+                font_style:"Subtitle1"
+                text_color: 0, 0, 1, 1
+
+            MDLabel:
+                id:dolumMiktari
+                halign: "center"
+                theme_text_color: "Hint"
+                font_style:"Subtitle1"
+                text_color: 0, 0, 1, 1
+            MDLabel:
+                id:dolumTarihi
+                halign: "center"
+                theme_text_color: "Hint"
+                font_style:"Subtitle1"
+                text_color: 0, 0, 1, 1
+            MDLabel:
+                id:kullanimTarihi
+                halign: "center"
+                theme_text_color: "Hint"
+                font_style:"Subtitle1"
+                text_color: 0, 0, 1, 1
+            MDLabel:
