@@ -1,0 +1,72 @@
+#:import MapView kivy_garden.mapview.view.MapMarker
+<ScreenManagement>:
+    id: "aa"
+    AdminPage:
+        name: 'admin_id'
+    UserPage:
+        name: 'user_id'
+
+<AdminPage>:
+    BoxLayout:  
+        orientation:"vertical"  
+        canvas.before:
+            Color:
+                rgba:(0,0,0,1)
+            Rectangle:
+                size:self.size
+                pos:self.pos
+        BoxLayout:
+            size_hint_y:None
+            height:40
+            canvas.before:
+                Color:
+                    rgba:(74/255,151/255,240/255,1)
+                Rectangle:
+                    size:self.size
+                    pos:self.pos
+            Button:
+                text:"Admin"
+                on_press:root.change_screen1()
+                background_normal:""
+                background_color:(74/255,151/255,240/255,1)
+            Button:
+                text:"button"
+                on_press:root.change_screen2()
+                background_normal:""
+                background_color:(74/255,151/255,240/255,1)
+            Button:
+                text:"button"
+                on_press:root.change_screen3()
+                background_normal:""
+                background_color:(74/255,151/255,240/255,1)
+            Button:
+                text:"button"
+                on_press:root.change_screen4()
+                background_normal:""
+                background_color:(74/255,151/255,240/255,1)
+        BoxLayout:
+            ScreenManager:
+                id: scrn_mngr
+                Screen:
+                    name: 'V'
+                    BoxLayout:
+                        orientation:"vertical"    
+                        Video:
+                            source:"luffy.mp4"
+                            state:"play"
+                        # Image:
+                        #     source:"aa.png"
+
+                Screen:
+                    name: 'M'
+                    Button:
+                        text:'2'
+
+                Screen:
+                    name: 'MÜ'
+                    Button:
+                        text:'3'
+                Screen:
+                    name: 'L'
+                    Button:
+                        text:'4'
