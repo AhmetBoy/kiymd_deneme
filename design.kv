@@ -1,37 +1,47 @@
 # #:import ScrollView kivy.uix.scrollview
 <ScreenManagement>:
-    id: "aa"
+    id: "scrn_mngr"
     AdminPage:
         name: 'admin_id'
     UserPage:
         name: 'user_id'
+    UserPage2:
+        name: 'user_id2'
+
 
 <AdminPage>:
     MDBoxLayout:  
         orientation:"vertical"  
 
         MDToolbar:
-            title: "MDTopAppBar"
-            # elevation: 10
-            left_action_items: [["white-balance-sunny", lambda x: root.callback(),"menu"]]
+            id:icons
+            title: "Explore"
+            left_action_items: [["white-balance-sunny", lambda x: app.switch_theme_style()]]
             right_action_items: [["card-search", lambda x: root.callback(),"search"],["dots-vertical", lambda x: root.callback(),"secenekler"]]
+            # elevation: 0
             opposite_colors: True
-            md_bg_color: 1, 1, 1, 1
-            specific_text_color: 0,0,0,1
+            md_bg_color:0.2,0.2,0.2,1
             
         MDScreen: #sayfanın üstünde bulunan butonların kısmı
             # size_hint_y:None
             size_hint_y:.09
             MDIconButton:
+                # on_press:app.theme_cls.theme_style = "Dark"
+                id:icons1
+                on_press:root.manager.current = "admin_id"
                 icon: 'compass'
                 # md_bg_color: 1, 1, 0, 1
                 pos_hint: {'center_x': 0.2}
             MDIconButton:
+                id:icons2
+                on_press:root.manager.current = "user_id"
                 # md_bg_color: app.theme_cls.primary_light
-                icon: 'star'
+                icon: 'star-outline'
                 pos_hint: {'center_x': 0.5}
             MDIconButton:
-                icon: 'heart'
+                id:icons3
+                on_press:root.manager.current = "user_id2"
+                icon: 'heart-outline'
                 pos_hint: {'center_x': 0.8}
 
 
@@ -40,8 +50,8 @@
         ScrollView:
             # size_hint_y:.7
             pos_hint:{"x":0,"y":.11}
-            do_scroll_x:False
-            do_scroll_y:True
+            # do_scroll_x:False
+            # do_scroll_y:True
             GridLayout:
                 cols:2
                 size_hint_y:None # önce boyut sıfırlanmassa scrollview olmaz
@@ -81,20 +91,92 @@
                     padding:10
                     Image:
                         source:"ins_new.png"
-                # MDCard:
-                # MDCard:
-                # MDCard:
-                # MDCard:
-                # MDCard:
-                # MDCard:
-                # MDCard:
-                # MDCard:
-                # MDCard:
-                # MDCard:
-                # MDCard:
-                # MDCard:
-                # MDCard:
-                # MDCard:
+
+
+
+    MDFloatingActionButtonSpeedDial:
+        data: root.data
+        rotation_root_button: True
+        hint_animation: True
+        # bg_color_root_button:0,0,0,1
+        # color_icon_root_button:1,1,1,1
+        # specific_text_color: 0,0,0,1
+        callback:root.callback
+
+
+
+
+
+<UserPage>:
+
+    BoxLayout:
+        orientation:"vertical"
+        size_hint_y:None
+        pos_hint:{"center_y":1}
+        MDScreen: #sayfanın üstünde bulunan butonların kısmı
+            
+            MDIconButton:
+                on_press:root.manager.current = "admin_id"
+                icon: 'compass-outline'
+                # md_bg_color: 1, 1, 0, 1
+                pos_hint: {'center_x': 0.2}
+            MDIconButton:
+                on_press:root.b()
+                # md_bg_color: app.theme_cls.primary_light
+                icon: 'star'
+                pos_hint: {'center_x': 0.5}
+            MDIconButton:
+                on_press:root.manager.current = "user_id2"
+                icon: 'heart-outline'
+                pos_hint: {'center_x': 0.8}
+    ScrollView:
+        size_hint_y:.9
+        GridLayout:
+            cols:2
+            id:products
+            size_hint_y:None # önce boyut sıfırlanmassa scrollview olmaz
+            # size:root.width,root.height #orjinal boyutu yapar
+            height:self.minimum_height
+            # row_force_default:True
+            row_default_height:220 #her bir row un uzunlugunu belirliyor
+            padding:20,4 #birincisi sol ve sagdan boşluk koyar ikicisi alttan ve üstten boşluk koyar
+            spacing:20
+           
+
+
+
+
+
+<UserPage2>:
+    BoxLayout:
+        orientation:"vertical"
+        MDScreen: #sayfanın üstünde bulunan butonların kısmı
+            size_hint_y:None
+            size_hint_y:.09
+            MDIconButton:
+                on_press:root.manager.current = "admin_id"
+                icon: 'compass-outline'
+                # md_bg_color: 1, 1, 0, 1
+                pos_hint: {'center_x': 0.2}
+            MDIconButton:
+                on_press:root.manager.current = "user_id"
+                # md_bg_color: app.theme_cls.primary_light
+                icon: 'star-outline'
+                pos_hint: {'center_x': 0.5}
+            MDIconButton:
+                on_press:root.manager.current = "user_id2"
+                icon: 'heart'
+                pos_hint: {'center_x': 0.8}
+
+        BoxLayout:
+            orientation:"vertical"
+            Image:
+                source:"folder1.jpg"
+            MDLabel:
+                text:"You don't have any favorites!"
+                halign:"center"
+                valign:"center"
+
 
 
 
@@ -104,115 +186,3 @@
         hint_animation: True
         md_bg_color: 0, 0, 0, 1
         specific_text_color: 0,0,0,1
-
-
-
-# <MDCard@SmartTileWithStar>
-#     size_hint_y: None
-#     height: "240dp"
-#     width:"300dp"
-
-
-# ScrollView:
-
-#     MDGridLayout:
-#         cols: 3
-#         adaptive_height: True
-#         padding: dp(4), dp(4)
-#         spacing: dp(4)
-
-        
-
-
-
-                # Image:
-                #     source:"instagram.png"
-                # Image:
-                #     source:"youtube.png"
-                # Image:
-                #     source:"instagram.png"
-                # Image:
-                #     source:"youtube.png"
-                # Image:
-                #     source:"instagram.png"
-                # Image:
-                #     source:"youtube.png"
-                # Image:
-                #     source:"instagram.png"
-                # Image:
-                #     source:"youtube.png"
-                # Image:
-                #     source:"instagram.png"
-                # Image:
-                #     source:"youtube.png"
-
-
-
-# from kivy.lang import Builder
-# from kivymd.app import MDApp
-
-# KV = """
-# MDScreen:
-
-#     MDFlatButton:
-#         text: 'MDFlatButton'
-#         pos_hint: {'center_x': 0.5, 'center_y': 0.9}
-
-#     MDRaisedButton:
-#         text: 'MDRaisedButton'
-#         pos_hint: {'center_x': 0.5, 'center_y': 0.8}
-
-#     MDRectangleFlatButton:
-#         text: 'MDRectangleFlatButton'
-#         pos_hint: {'center_x': 0.5, 'center_y': 0.7}
-
-#     MDRectangleFlatIconButton:
-#         icon: 'language-python'
-#         text: 'MDRectangleFlatIconButton'
-#         pos_hint: {'center_x': 0.5, 'center_y': 0.6}
-
-#     MDRoundFlatButton:
-#         text: 'MDRoundFlatButton'
-#         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-
-#     MDRoundFlatIconButton:
-#         icon: 'language-python'
-#         text: 'MDRoundFlatIconButton'
-#         pos_hint: {'center_x': 0.5, 'center_y': 0.4}
-
-#     MDFillRoundFlatIconButton:
-#         icon: 'language-python'
-#         text: 'MDFillRoundFlatIconButton'
-#         pos_hint: {'center_x': 0.5, 'center_y': 0.3}
-
-#     MDFillRoundFlatButton:
-#         text: 'MDFillRoundButton'
-#         pos_hint: {'center_x': 0.5, 'center_y': 0.2}
-
-#     MDTextButton:
-#         text: 'MDTextButton'
-#         pos_hint: {'center_x': 0.3, 'center_y': 0.1}
-
-#     MDIconButton:
-#         icon: 'language-python'
-#         pos_hint: {'center_x': 0.7, 'center_y': 0.1}
-
-#     MDFloatingActionButtonSpeedDial:
-#         data: app.data
-#         rotation_root_button: True
-
-# """
-
-
-# class Example(MDApp):
-#     data = {
-#         "language-python": "Python",
-#         "language-php": "PHP",
-#         "language-cpp": "C++",
-#     }
-
-#     def build(self):
-#         return Builder.load_string(KV)
-
-
-# Example().run()
