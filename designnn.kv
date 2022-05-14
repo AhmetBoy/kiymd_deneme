@@ -1,0 +1,281 @@
+# #:import ScrollView kivy.uix.scrollview
+# #: import SlideTransition kivy.uix.screenmanager.SlideTransition
+# #: import FadeTransition kivy.uix.screenmanager.FadeTransition
+<ScreenManagement>:
+    id: "scrn_mngr"
+    Download:
+        name: 'download_id'
+    Store:
+        name: 'store_id'
+    Favorite:
+        name: 'favorite_id'
+
+
+
+
+
+<Store>:
+
+    BoxLayout:
+        orientation:"vertical"
+        # pos_hint:{"center_y":.9}
+
+        MDScreen: #sayfanın üstünde bulunan butonların kısmı
+            size_hint_y:None
+            size_hint_y:.1
+            MDIconButton:
+                id:icons4
+                on_press:app.switch_theme_style()
+                icon: 'white-balance-sunny'
+                pos_hint: {'center_x': .03}
+            MDIconButton:
+                # on_press:root.manager.current = "store_id"
+                on_press: root.manager.transition.duration
+                icon: 'library-music'
+                # md_bg_color: 1, 1, 0, 1
+                pos_hint: {'center_x': 0.2}
+            MDIconButton:
+                on_press:root.manager.current = "download_id"
+                on_press: root.manager.transition.duration = 0
+                # md_bg_color: app.theme_cls.primary_light
+                icon: 'download-outline'
+                pos_hint: {'center_x': 0.5}
+            MDIconButton:
+                on_press:root.manager.current = "favorite_id"
+                on_press: root.manager.transition.duration = 0
+                # on_press: root.manager.transition.direction = 'left'
+                icon: 'star-outline'
+                pos_hint: {'center_x': 0.8}
+        ScrollView:
+            # size_hint_y:.7
+            pos_hint:{"x":0,"y":.11}
+            # do_scroll_x:False
+            # do_scroll_y:True
+            GridLayout:
+                id:grd_storePage
+                cols:1
+                size_hint_y:None # önce boyut sıfırlanmassa scrollview olmaz
+                # size:root.width,root.height #orjinal boyutu yapar
+                height:self.minimum_height
+                # row_force_default:True
+                row_default_height:150 #her bir row un uzunlugunu belirliyor
+                padding:10,10 #birincisi sol ve sagdan boşluk koyar ikicisi alttan ve üstten boşluk koyar
+                spacing:10
+                
+
+
+
+
+<Download>:
+    MDBoxLayout:  
+        orientation:"vertical"  
+        MDScreen: #sayfanın üstünde bulunan butonların kısmı
+            size_hint_y:None
+            size_hint_y:.1
+            MDIconButton:
+                id:icons4
+                on_press:app.switch_theme_style()
+                icon: 'white-balance-sunny'
+                pos_hint: {'center_x': .03}
+            MDIconButton:
+                id:icons1
+                on_press:root.manager.current = "store_id"
+                on_press: root.manager.transition.duration = 0
+                icon: 'library-music-outline'
+                pos_hint: {'center_x': 0.2}
+            MDIconButton:
+                id:icons2
+                on_press:root.creat_blog()
+                # on_press: root.manager.transition.direction = 'left'
+                icon: 'download'
+                pos_hint: {'center_x': 0.5}
+            MDIconButton:
+                id:icons3
+                on_press:root.manager.current = "favorite_id"
+                on_press: root.manager.transition.duration = 0
+                # on_press: root.manager.transition.direction = 'left'
+                icon: 'star-outline'
+                pos_hint: {'center_x': 0.8}
+        MDTextField:
+            id:search_word
+            text:"arogfirinnerede"
+            hint_text: "URL or Name"
+            mode: "fill"
+            icon_right: "magnify"
+            icon_right_color:app.theme_cls.primary_color
+            on_text_validate:root.make_search_id()
+
+        ScrollView:
+            # size_hint_y:.7
+            pos_hint:{"x":0,"y":.11}
+            # do_scroll_x:False
+            # do_scroll_y:True
+            GridLayout:
+                id:grd_downloadPage
+                cols:1
+                size_hint_y:None # önce boyut sıfırlanmassa scrollview olmaz
+                # size:root.width,root.height #orjinal boyutu yapar
+                height:self.minimum_height
+                # row_force_default:True
+                row_default_height:200 #her bir row un uzunlugunu belirliyor
+                padding:10,10 #birincisi sol ve sagdan boşluk koyar ikicisi alttan ve üstten boşluk koyar
+                spacing:10
+                
+
+       
+
+        
+
+
+
+    # MDFloatingActionButtonSpeedDial:
+    #     data: root.data
+    #     rotation_root_button: True
+    #     hint_animation: True
+    #     # bg_color_root_button:0,0,0,1
+    #     # color_icon_root_button:1,1,1,1
+    #     # specific_text_color: 0,0,0,1
+    #     callback:root.callback
+            
+        # ScrollView:
+        #     size_hint_y:.8
+        #     GridLayout:
+        #         cols:2
+        #         id:grd
+        #         size_hint_y:None # önce boyut sıfırlanmassa scrollview olmaz
+        #         # size:root.width,root.height #orjinal boyutu yapar
+        #         height:self.minimum_height
+        #         # row_force_default:True
+        #         row_default_height:440 #her bir row un uzunlugunu belirliyor
+        #         padding:20,4 #birincisi sol ve sagdan boşluk koyar ikicisi alttan ve üstten boşluk koyar
+        #         spacing:20
+           
+
+
+
+
+
+<Favorite>:
+    BoxLayout:
+        orientation:"vertical"
+        MDScreen: #sayfanın üstünde bulunan butonların kısmı
+            size_hint_y:None
+            size_hint_y:.1
+            MDIconButton:
+                id:icons4
+                on_press:app.switch_theme_style()
+                icon: 'white-balance-sunny'
+                pos_hint: {'center_x': .03}
+            MDIconButton:
+                on_press:root.manager.current = "store_id"
+                on_press: root.manager.transition.duration = 0
+                # on_press: root.manager.transition.direction = 'right'
+                icon: 'library-music-outline'
+                # md_bg_color: 1, 1, 0, 1
+                pos_hint: {'center_x': 0.2}
+            MDIconButton:
+                on_press:root.manager.current = "download_id"
+                on_press: root.manager.transition.duration = 0
+                # on_press: root.manager.transition.direction = 'right'
+                # md_bg_color: app.theme_cls.primary_light
+                icon: 'download-outline'
+                pos_hint: {'center_x': 0.5}
+            MDIconButton:
+                # on_press:root.manager.current = "favorite_id"
+                icon: 'star'
+                pos_hint: {'center_x': 0.8}
+
+        BoxLayout:
+            orientation:"vertical"
+            Image:
+                source:"instagram.png"
+            MDLabel:
+                text:"You don't have any favorites!"
+                halign:"center"
+                valign:"center"
+
+
+
+
+    MDFloatingActionButtonSpeedDial:
+        data: root.data
+        rotation_root_button: True
+        hint_animation: True
+        md_bg_color: 0, 0, 0, 1
+        specific_text_color: 0,0,0,1
+
+
+
+# ScrollView:
+#             # size_hint_y:.7
+#             pos_hint:{"x":0,"y":.11}
+#             # do_scroll_x:False
+#             # do_scroll_y:True
+#             GridLayout:
+#                 id:grd
+#                 cols:1
+#                 size_hint_y:None # önce boyut sıfırlanmassa scrollview olmaz
+#                 # size:root.width,root.height #orjinal boyutu yapar
+#                 height:self.minimum_height
+#                 # row_force_default:True
+#                 row_default_height:200 #her bir row un uzunlugunu belirliyor
+#                 padding:4,4 #birincisi sol ve sagdan boşluk koyar ikicisi alttan ve üstten boşluk koyar
+
+#                 MDCard:
+#                     spacing:10
+#                     padding:4
+#                     BoxLayout:
+#                         size_hint_x:.4
+#                         Image:
+#                             source:"youtube.png"
+#                     BoxLayout:
+#                         orientation:"vertical"
+#                         size_hint_x:.6
+#                         BoxLayout:
+#                             # pos_hint:{"center_x":.5 , "center_y":.9}
+#                             # size_hint_y:.6
+#                             orientation:"vertical"
+#                             MDLabel:
+#                                 text:"MDLabel"
+#                             MDLabel:
+#                                 text:"MDLabel"
+#                             MDLabel:
+#                                 text:"MDLabel"
+#                         BoxLayout:
+#                             MDIconButton:
+#                                 icon:"youtube"
+#                                 user_font_size: "48sp"
+#                             MDIconButton:
+#                                 icon:"youtube"
+#                                 user_font_size: "48sp"
+                
+
+                        
+
+
+#                 # MDCard:
+#                 #     md_bg_color:.5,.2,.6,.3 #arka plan fotografın rengine göre degiştirilecek
+#                 #     padding:10
+#                 #     Image:
+#                 #         source:"b.jpg"
+#                 # MDCard:
+#                 #     md_bg_color:0,0,0,1
+#                 #     padding:10
+#                 #     Image:
+#                 #         source:"bb.jpg"
+#                 # MDCard:
+#                 #     padding:10
+#                 #     Image:
+#                 #         source:"bbb.jpg"
+#                 # MDCard:
+#                 #     padding:10
+#                 #     Image:
+#                 #         source:"all.png"
+#                 # MDCard:
+#                 #     padding:10
+#                 #     Image:
+#                 #         source:"youtube.png"
+#                 # MDCard:
+#                 #     padding:10
+#                 #     Image:
+#                 #         source:"ins_new.png"
